@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres:12-alpine
+    container_name: telegram-api-db
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=telegram
+      - POSTGRES_PASSWORD=09022002101010aA!
+      - POSTGRES_DB=telegram

@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: telegram-api-bot
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/telegram
+    username: telegram
+    password: 09022002101010aA!
+    driver-class-name: org.postgresql.Driver
+    platform: postgres
+  sql:
+    init:
+      platform: postgres
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/changelog-master.yml
+
+
+app:
+  feign:
+    telegram-client:
+      url: https://api.telegram.org/bot5186443674:AAESqlQEoPG80MIfYZ6LvABM3vV3-klVlKo
+      retry: 3
