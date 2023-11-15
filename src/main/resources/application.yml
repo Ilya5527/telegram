@@ -1,24 +1,48 @@
+#=======================================================================================================================
+# SPRING CONFIG
+#=======================================================================================================================
 spring:
   application:
     name: telegram-api-bot
-  profiles:
-    active: dev
   datasource:
-    url: jdbc:postgresql://localhost:5432/telegram
-    username: telegram
-    password: 09022002101010aA!
+    url: ${DATASOURCE_URL:${default-values.datasource-default-url}}
+    username: ${DATASOURCE_USERNAME:${default-values.datasource-default-username}}
+    password: ${DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
-    platform: postgres
   sql:
     init:
       platform: postgres
   liquibase:
     enabled: true
     change-log: classpath:/db/changelog/changelog-master.yml
-
-
-app:
-  feign:
-    telegram-client:
-      url: https://api.telegram.org/bot5186443674:AAESqlQEoPG80MIfYZ6LvABM3vV3-klVlKo
-      retry: 3
+#=======================================================================================================================
+# ACTUATOR CONFIG
+#=======================================================================================================================
+management:
+  server:
+    port: 8081
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+    prometheus:
+      enabled: true
+    loggers:
+      enabled: true
+#=======================================================================================================================
+# TELEGRAM BOT CONFIG
+#=======================================================================================================================
+telegram-client:
+  token: ${TELEGRAM_TOKEN}
+  url: ${TELEGRAM_URL:${default-values.datasource-default-url}${telegram-client.token}}
+  retry-limit: ${TELEGRAM_RETRY:${telegram-client.retry-limit}}
+#=======================================================================================================================
+# DEFAULT VALUES FOR PLACEHOLDERS
+#=======================================================================================================================
+default-values:
+  datasource-default-url: jdbc:postgresql://localhost:5432/telegram
+  datasource-default-username: telegram
+  telegram-default-url: https://api.telegram.org/bot
+  telegram-default-retry-limit-value: 3
+#=======================================================================================================================
