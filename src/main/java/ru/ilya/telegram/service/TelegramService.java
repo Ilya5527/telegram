@@ -15,4 +15,6 @@ public interface TelegramService {
     void shutdownTelegramBot();
 
     Message sendMessage(SendMessageRequest request);
+
+    void processRequest(Update update);
 }

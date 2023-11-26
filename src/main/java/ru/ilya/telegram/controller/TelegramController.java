@@ -28,7 +28,6 @@ public class TelegramController {
         telegramService.shutdownTelegramBot();
     }
 
-
     @PostMapping(path = URL)
     public ResponseEntity<?> handleTelegramRequest(@RequestBody Update update) {
         telegramService.sendMessage(SendMessageRequest.builder()

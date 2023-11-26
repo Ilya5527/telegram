@@ -42,4 +42,9 @@ public class TelegramServiceImpl implements TelegramService {
         return telegramFeignClient.sendMessage(request);
     }
 
+    @Override
+    public void processRequest(Update update) {
+
+    }
+
 }
