@@ -2,13 +2,10 @@ package ru.ilya.telegram.controller;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ilya.telegram.model.SendMessageRequest;
 import ru.ilya.telegram.model.Update;
@@ -33,8 +30,7 @@ public class TelegramController {
 
 
     @PostMapping(path = URL)
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> handleTelegramRequest(@RequestBody Update update, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<?> handleTelegramRequest(@RequestBody Update update) {
         telegramService.sendMessage(SendMessageRequest.builder()
                     .text("ПРИВЕТ ТЕСТ КАК ДЕЛА")
                     .chatId(update.message().chat().id().toString())

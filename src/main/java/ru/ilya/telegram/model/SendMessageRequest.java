@@ -9,8 +9,6 @@ public record SendMessageRequest(@JsonProperty("chat_id")
                                  @JsonProperty("message_thread_id")
                                  Integer messageThreadId,
                                  @JsonProperty("text")
-                                 String text,
-                                 @JsonProperty("parse_mode")
-                                 String parseMode) {
+                                 String text) {
 
 }
