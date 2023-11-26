@@ -7,7 +7,7 @@ spring:
   datasource:
     url: ${DATASOURCE_URL:${default-values.datasource-default-url}}
     username: ${DATASOURCE_USERNAME:${default-values.datasource-default-username}}
-    password: ${DATASOURCE_PASSWORD}
+    password: ${DATASOURCE_PASSWORD:${default-values.datasource-default-password}}
     driver-class-name: org.postgresql.Driver
   sql:
     init:
@@ -15,6 +15,11 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:/db/changelog/changelog-master.yml
+  mvc:
+    servlet:
+      load-on-startup: 1
+server:
+  port: 8443
 #=======================================================================================================================
 # ACTUATOR CONFIG
 #=======================================================================================================================
@@ -34,15 +39,18 @@ management:
 # TELEGRAM BOT CONFIG
 #=======================================================================================================================
 telegram-client:
-  token: ${TELEGRAM_TOKEN}
-  url: ${TELEGRAM_URL:${default-values.datasource-default-url}${telegram-client.token}}
-  retry-limit: ${TELEGRAM_RETRY:${telegram-client.retry-limit}}
+  token: ${TELEGRAM_TOKEN:5186443674:AAESqlQEoPG80MIfYZ6LvABM3vV3-klVlKo}
+  url: ${TELEGRAM_URL:${default-values.telegram-default-url}${telegram-client.token}}
+  retry-limit: ${TELEGRAM_RETRY:${default-values.telegram-default-retry-limit-value}}
+  webhook-url: ${WEBHOOK_URL:${default-values.webhook-default-value}}
 #=======================================================================================================================
 # DEFAULT VALUES FOR PLACEHOLDERS
 #=======================================================================================================================
 default-values:
   datasource-default-url: jdbc:postgresql://localhost:5432/telegram
   datasource-default-username: telegram
+  datasource-default-password: telegram
   telegram-default-url: https://api.telegram.org/bot
   telegram-default-retry-limit-value: 3
+  webhook-default-value: https://6f91-62-217-186-158.ngrok-free.app
 #=======================================================================================================================

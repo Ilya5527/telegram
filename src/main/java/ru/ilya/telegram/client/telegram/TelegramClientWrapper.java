@@ -8,6 +8,7 @@ import ru.ilya.telegram.client.telegram.api.TelegramClientApi;
 import ru.ilya.telegram.model.GetUpdatesRequest;
 import ru.ilya.telegram.model.Message;
 import ru.ilya.telegram.model.SendMessageRequest;
+import ru.ilya.telegram.model.SetWebhookRequest;
 import ru.ilya.telegram.model.Update;
 
 @Slf4j
@@ -37,6 +38,21 @@ public class TelegramClientWrapper {
                 () -> client.sendMessage(sendMessageRequest),
                 CLIENT_TIMER_NAME,
                 "sendMessage"
+        );
+    }
+
+    public void setWebhook(SetWebhookRequest request) {
+        feignMeterRegistry.meter(
+                () -> client.setWebhook(request),
+                CLIENT_TIMER_NAME,
+                "setWebhook");
+    }
+
+    public void deleteWebhook() {
+        feignMeterRegistry.meter(
+                client::deleteWebhook,
+                CLIENT_TIMER_NAME,
+                "deleteWebhook"
         );
     }
 

@@ -1,10 +1,11 @@
 package ru.ilya.telegram.config.properties;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.annotation.Nonnull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "telegram-client")
-public record TelegramClientProperties(@NotNull String token,
-                                       @NotNull String url,
-                                       @NotNull Integer retryLimit) {
+public record TelegramClientProperties(@Nonnull String token,
+                                       @Nonnull String url,
+                                       @Nonnull Integer retryLimit,
+                                       @Nonnull String webhookUrl) {
 }

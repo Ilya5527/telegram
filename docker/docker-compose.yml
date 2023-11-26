@@ -9,5 +9,5 @@ services:
       - 5432:5432
     environment:
       - POSTGRES_USER=telegram
-      - POSTGRES_PASSWORD=FILL_THE_PASSWORD
+      - POSTGRES_PASSWORD=telegram
       - POSTGRES_DB=telegram
