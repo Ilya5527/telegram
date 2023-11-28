@@ -52,5 +52,5 @@ default-values:
   datasource-default-password: telegram
   telegram-default-url: https://api.telegram.org/bot
   telegram-default-retry-limit-value: 3
-  webhook-default-value: https://6f91-62-217-186-158.ngrok-free.app
+  webhook-default-value: https://0b39-62-217-186-158.ngrok-free.app
 #=======================================================================================================================

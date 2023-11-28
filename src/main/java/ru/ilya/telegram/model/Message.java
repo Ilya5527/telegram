@@ -9,5 +9,7 @@ public record Message(@JsonProperty("message_id")
                       @JsonProperty("from")
                       User from,
                       @JsonProperty("chat")
-                      Chat chat) {
+                      Chat chat,
+                      @JsonProperty("text")
+                      String text) {
 }

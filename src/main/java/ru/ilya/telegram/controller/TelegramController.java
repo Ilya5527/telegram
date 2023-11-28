@@ -9,12 +9,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ilya.telegram.model.SendMessageRequest;
 import ru.ilya.telegram.model.Update;
+import ru.ilya.telegram.model.enums.RequestText;
+import ru.ilya.telegram.service.RequestProcessor;
 import ru.ilya.telegram.service.TelegramService;
+import ru.ilya.telegram.utility.MessageConstants;
+
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
 public class TelegramController {
     private final TelegramService telegramService;
+    private final Map<RequestText, RequestProcessor> requestProcessor;
 
     private static final String URL = "/handleTelegramRequest";
 
@@ -30,10 +36,19 @@ public class TelegramController {
 
     @PostMapping(path = URL)
     public ResponseEntity<?> handleTelegramRequest(@RequestBody Update update) {
-        telegramService.sendMessage(SendMessageRequest.builder()
-                    .text("ПРИВЕТ ТЕСТ КАК ДЕЛА")
-                    .chatId(update.message().chat().id().toString())
-                .build());
+        preProcessRequest(update);
         return ResponseEntity.ok().build();
+    }
+
+    private void preProcessRequest (Update update) {
+        try {
+            RequestText requestText = RequestText.valueOf(update.message().text());
+            requestProcessor.get(requestText).process(update);
+        } catch (IllegalArgumentException ignored) {
+            telegramService.sendMessage(SendMessageRequest.builder()
+                            .text(MessageConstants.STUPID_BOT)
+                            .chatId(update.message().chat().id().toString())
+                    .build());
+        }
     }
 }
